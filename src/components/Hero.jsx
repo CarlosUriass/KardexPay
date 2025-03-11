@@ -27,7 +27,7 @@ function Hero() {
           </button>
 
           <div className="pt-10">
-            <p className="font-extralight text-sm underline">
+            <p className="font-extralight text-sm underline cursor-pointer">
               <MdExplore className="inline-block mr-2" />
               Conoce los trámites que puedes realizar
             </p>
