@@ -1,7 +1,13 @@
 import Navbar from "../components/navbar";
+import ServicesSection from "../components/ServicesSection";
 
 function Servicios() {
-  return <Navbar></Navbar>;
+  return (
+    <div>
+      <Navbar></Navbar>
+      <ServicesSection></ServicesSection>
+    </div>
+  );
 }
 
 export default Servicios;

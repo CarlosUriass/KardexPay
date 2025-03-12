@@ -1,5 +1,6 @@
 import { MdExplore } from "react-icons/md";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import TramiteButton from "./TramiteButton";
 
 function Hero() {
   return (
@@ -22,9 +23,7 @@ function Hero() {
             clics.
           </h2>
 
-          <button className="bg-blue-400 w-60 h-16 text-white text-xl font-bold cursor-pointer mt-8 rounded-l">
-            Tramita ahora
-          </button>
+          <TramiteButton text={"Tramita Ahora"}></TramiteButton>
 
           <div className="pt-10">
             <p className="font-extralight text-sm underline cursor-pointer">
