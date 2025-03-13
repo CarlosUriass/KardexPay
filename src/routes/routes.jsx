@@ -3,6 +3,7 @@ import LandingPage from "../pages/LandingPage";
 import Servicios from "../pages/Servicios";
 import Tramites from "../pages/Tramites";
 import Consultas from "../pages/Consultas";
+import Login from "../pages/Login";
 
 function AppRoutes() {
   return (
@@ -12,6 +13,7 @@ function AppRoutes() {
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/tramites" element={<Tramites />} />
         <Route path="/consultas" element={<Consultas />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
