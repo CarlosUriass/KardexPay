@@ -81,6 +81,8 @@ function LoginForm() {
             Iniciar sesión
           </button>
         </form>
+
+        <p className="mt-2 underline font-extralight text-sm cursor-pointer">Olvide la contraseña</p>
       </div>
     </div>
   );
