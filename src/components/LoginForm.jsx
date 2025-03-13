@@ -1,12 +1,22 @@
 import { useState } from "react";
+import utils from "../utils/utils"
 
 function LoginForm() {
   const [email, setEmail] = useState(""); // Para el input de correo electrónico
   const [password, setPassword] = useState(""); // Para el input de contraseña
+  const [emailError, setEmailError] = useState(""); // Para mostrar un mensaje de error de email
 
-  // Maneja los cambios en el input de correo electrónico (VALIDACIONES)
+  // Maneja los cambios en el input de correo electrónico 
   const onEmailChange = (e) => {
-    setEmail(e.target.value);
+    const emailValue = e.target.value;
+    setEmail(emailValue);
+
+    // Validar el email cuando el usuario lo cambia
+    if (!utils.validateEmail(emailValue)) {
+      setEmailError("Correo electrónico no válido.");
+    } else {
+      setEmailError(""); // Si el email es válido, limpiar el mensaje de error
+    }
   };
 
   // Maneja los cambios en el input de contraseña
@@ -20,6 +30,11 @@ function LoginForm() {
 
     if (!email || !password) {
       alert("Por favor ingresa correo electrónico y contraseña.");
+      return;
+    }
+
+    if (!utils.validateEmail(email)) {
+      alert("Por favor ingresa un correo electrónico válido.");
       return;
     }
 
@@ -45,13 +60,23 @@ function LoginForm() {
               type="email"
               id="email"
               name="email"
-              className="w-full p-3 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={`w-full p-3 mt-1 border rounded-lg focus:outline-none 
+                transition-all duration-200 ease-in-out 
+                ${emailError ? "border-red-500 focus:ring-red-500 border" : "border-gray-300 focus:ring-blue-500"}
+                ${!emailError && email ? "border-green-500 focus:ring-green-500" : ""}
+                focus:ring-2 focus:ring-opacity-50
+                ${!emailError && email ? "focus:ring-green-500" : ""} 
+                ${emailError ? "focus:ring-red-500" : ""}
+                focus:shadow-lg`} // Usamos focus:shadow-lg para el sombreado verde
               required
               placeholder="correo@correo.com"
               value={email} // El valor del input está vinculado al estado `email`
               onChange={onEmailChange} // Actualiza el estado cuando el usuario escribe
               autoComplete="email"
             />
+            {emailError && (
+              <p className="text-red-500 text-xs mt-1">{emailError}</p>
+            )}
           </div>
 
           <div className="mb-6">
@@ -81,6 +106,8 @@ function LoginForm() {
             Iniciar sesión
           </button>
         </form>
+
+        <p className="mt-2 underline font-extralight text-sm cursor-pointer">Olvide la contraseña</p>
       </div>
     </div>
   );
