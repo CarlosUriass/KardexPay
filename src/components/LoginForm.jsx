@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import utils from "../utils/utils";
+import axios from "axios";
 
 function LoginForm() {
-  const [email, setEmail] = useState(""); // Para el input de correo electrónico
-  const [password, setPassword] = useState(""); // Para el input de contraseña
-  const [emailError, setEmailError] = useState(""); // Para mostrar un mensaje de error de email
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   // Maneja los cambios en el input de correo electrónico
   const onEmailChange = (e) => {
@@ -26,7 +30,7 @@ function LoginForm() {
   };
 
   // Maneja el envío del formulario
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -39,7 +43,26 @@ function LoginForm() {
       return;
     }
 
-    // Aquí iría la lógica para manejar el inicio de sesión
+    setLoading(true); // Inicia el estado de carga
+    setErrorMessage(""); // Limpia cualquier error anterior
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5001/api/auth/login",
+        {
+          correo: email,
+          password,
+        }
+      );
+
+      localStorage.setItem("token", response.data.token); // Guardar el token en Local Storage
+      navigate("/Dashboard");
+    } catch (error) {
+      setErrorMessage("Error al iniciar sesión. Verifica tus credenciales.");
+      console.error("Error al hacer login:", error);
+    } finally {
+      setLoading(false); // Termina el estado de carga
+    }
   };
 
   return (
@@ -108,11 +131,16 @@ function LoginForm() {
             />
           </div>
 
+          {errorMessage && (
+            <p className="text-red-500 text-xs mt-1">{errorMessage}</p>
+          )}
+
           <button
             type="submit"
             className="w-full p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 cursor-pointer"
+            disabled={loading} // Desactiva el botón mientras está cargando
           >
-            Iniciar sesión
+            {loading ? "Cargando..." : "Iniciar sesión"}
           </button>
         </form>
 
