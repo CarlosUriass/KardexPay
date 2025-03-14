@@ -1,12 +1,13 @@
 import { useState } from "react";
-import utils from "../utils/utils"
+import { Link } from "react-router-dom";
+import utils from "../utils/utils";
 
 function LoginForm() {
   const [email, setEmail] = useState(""); // Para el input de correo electrónico
   const [password, setPassword] = useState(""); // Para el input de contraseña
   const [emailError, setEmailError] = useState(""); // Para mostrar un mensaje de error de email
 
-  // Maneja los cambios en el input de correo electrónico 
+  // Maneja los cambios en el input de correo electrónico
   const onEmailChange = (e) => {
     const emailValue = e.target.value;
     setEmail(emailValue);
@@ -62,8 +63,16 @@ function LoginForm() {
               name="email"
               className={`w-full p-3 mt-1 border rounded-lg focus:outline-none 
                 transition-all duration-200 ease-in-out 
-                ${emailError ? "border-red-500 focus:ring-red-500 border" : "border-gray-300 focus:ring-blue-500"}
-                ${!emailError && email ? "border-green-500 focus:ring-green-500" : ""}
+                ${
+                  emailError
+                    ? "border-red-500 focus:ring-red-500 border"
+                    : "border-gray-300 focus:ring-blue-500"
+                }
+                ${
+                  !emailError && email
+                    ? "border-green-500 focus:ring-green-500"
+                    : ""
+                }
                 focus:ring-2 focus:ring-opacity-50
                 ${!emailError && email ? "focus:ring-green-500" : ""} 
                 ${emailError ? "focus:ring-red-500" : ""}
@@ -101,13 +110,17 @@ function LoginForm() {
 
           <button
             type="submit"
-            className="w-full p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+            className="w-full p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 cursor-pointer"
           >
             Iniciar sesión
           </button>
         </form>
 
-        <p className="mt-2 underline font-extralight text-sm cursor-pointer">Olvide la contraseña</p>
+        <Link to={"/recuperarContraseña"}>
+          <p className="mt-2 underline font-extralight text-sm cursor-pointer">
+            Olvidé la contraseña
+          </p>
+        </Link>
       </div>
     </div>
   );
