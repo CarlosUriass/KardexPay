@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <nav className="bg-white h-20 flex items-center justify-between px-8 shadow-md">
-      {/* Cambié <link> por <Link> */}
       <Link
         to="/"
         className="text-black font-bold text-3xl font-[Montserrat] pl-12"

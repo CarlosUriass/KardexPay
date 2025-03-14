@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import capitalize from "../utils/utils";
+import utils from "../utils/utils";
 
 function ServiceCard({ image, title, description }) {
   return (
@@ -7,10 +7,10 @@ function ServiceCard({ image, title, description }) {
       <img className="w-full h-48 object-cover" src={image} alt={title} />
       <div className="p-4">
         <h3 className="text-lg font-semibold text-gray-800">
-          {capitalize(title)}
+          {utils.capitalize(title)}
         </h3>
         <p className="text-gray-600 mt-2 h-[100px] overflow-y-auto">
-          {capitalize(description)}
+          {utils.capitalize(description)}
         </p>{" "}
         {/* Limitar altura y permitir desplazamiento */}
         <Link to={"/tramites"}>
