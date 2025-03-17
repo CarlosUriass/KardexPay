@@ -1,9 +1,37 @@
+import axios from "axios";
+import { useState } from "react";
+import utils from "../utils/utils";
+
 function FormularioTramite() {
+  const [matricula, setMatricula] = useState("");
+  const [studentData, setStudentData] = useState({
+    nombre: "",
+    primerApellido: "",
+    segundoApellido: "",
+    facultad: "",
+  });
+
+  const fetchStudentData = () => {
+    if (matricula.trim() !== "") {
+      axios
+        .get(`http://localhost:5001/api/buscarAlumno/encontraralumno`, {
+          params: { matricula }, // Enviamos la matrícula como parámetro de consulta
+        })
+        .then((response) => {
+          setStudentData(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching student data:", error);
+        });
+    }
+  };
+
   return (
-    <div className="ml-10 mt-5 mb-10 shadow-2xl rounded-2xl p-5 w-210 bg-white relative z-20 h-150">
+    <div className="ml-10 mt-5 mb-10 shadow-2xl rounded-2xl p-5 w-full max-w-4xl bg-white relative z-20 h-150">
       <form className="space-y-6 p-9">
         {/* Matrícula */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 ">
           <div>
             <label
               htmlFor="matricula"
@@ -16,6 +44,9 @@ function FormularioTramite() {
               id="matricula"
               name="matricula"
               placeholder="Ingrese su matrícula"
+              value={matricula}
+              onChange={(e) => setMatricula(e.target.value)}
+              onBlur={fetchStudentData} // Ejecuta la petición al salir del input
               className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
@@ -35,9 +66,11 @@ function FormularioTramite() {
               type="text"
               id="nombre"
               name="nombre"
-              placeholder="Ingrese su nombre"
+              placeholder="Nombre"
               disabled
-              className="input-style"
+              value={utils.capitalize(studentData.nombre)}
+              className="mt-2 block w-full max-w-lg px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
+              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
 
@@ -54,7 +87,9 @@ function FormularioTramite() {
               name="primerApellido"
               placeholder="Primer apellido"
               disabled
-              className="input-style"
+              value={utils.capitalize(studentData.primer_apellido)}
+              className="mt-2 block w-full max-w-lg px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
+              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
         </div>
@@ -73,7 +108,9 @@ function FormularioTramite() {
               name="segundoApellido"
               placeholder="Segundo apellido"
               disabled
-              className="input-style"
+              value={utils.capitalize(studentData.segundo_apellido)}
+              className="mt-2 block w-full max-w-lg px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
+              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
 
@@ -90,7 +127,9 @@ function FormularioTramite() {
               name="facultad"
               placeholder="Facultad"
               disabled
-              className="input-style"
+              value={utils.capitalize(studentData.facultad)}
+              className="mt-2 block w-full max-w-lg px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
+              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
         </div>
@@ -98,17 +137,17 @@ function FormularioTramite() {
         {/* Correo Electrónico */}
         <div>
           <label
-            htmlFor="Correo electronico"
+            htmlFor="correoElectronico"
             className="block text-sm font-medium text-gray-700"
           >
-            Correo Electronico
+            Correo Electrónico
           </label>
           <input
             type="email"
             id="email"
             name="email"
-            placeholder="Ingrese su correo electronico"
-            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
+            placeholder="Ingrese su correo electrónico"
+            className="mt-2 block w-full max-w-lg px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
