@@ -21,12 +21,6 @@ function Navbar() {
         </li>
 
         <li>
-          <Link to="/tramites" className="text-black font-light cursor-pointer">
-            Realizar Tramite
-          </Link>
-        </li>
-
-        <li>
           <Link
             to="/consultas"
             className="text-black font-light cursor-pointer"

@@ -1,5 +1,5 @@
 function Dashboard() {
-  return <h1>Hola, autenticado!</h1>;
+  return;
 }
 
 export default Dashboard;
