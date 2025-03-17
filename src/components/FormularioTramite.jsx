@@ -101,7 +101,7 @@ function FormularioTramite() {
             htmlFor="Correo electronico"
             className="block text-sm font-medium text-gray-700"
           >
-            Matrícula
+            Correo Electronico
           </label>
           <input
             type="email"
