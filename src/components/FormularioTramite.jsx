@@ -34,6 +34,21 @@ function FormularioTramite() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
+  // Estado corregido para email y error
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  const onEmailChange = (e) => {
+    const emailValue = e.target.value;
+    setEmail(emailValue);
+
+    if (!utils.validateEmail(emailValue)) {
+      setEmailError("Correo electrónico no válido.");
+    } else {
+      setEmailError("");
+    }
+  };
+
   const openModal = (message) => {
     setModalMessage(message);
     setIsModalOpen(true);
@@ -53,7 +68,7 @@ function FormularioTramite() {
         if (response.data.aplicable) {
           fetchUsuarioData();
         } else {
-          // Aqui buscar entre los empleados
+          // Aquí buscar entre los empleados
         }
       })
       .catch(() => {
@@ -202,11 +217,10 @@ function FormularioTramite() {
               />
             </div>
           </div>
-
           {/* Correo Electrónico */}
           <div>
             <label
-              htmlFor="correoElectronico"
+              htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
               Correo Electrónico
@@ -216,9 +230,22 @@ function FormularioTramite() {
               id="email"
               name="email"
               placeholder="Ingrese su correo electrónico"
-              className="mt-2 block w-full max-w-lg px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
-                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className={`mt-2 block w-full max-w-lg px-4 py-3 border rounded-lg shadow-sm 
+      focus:outline-none focus:ring-2 sm:text-sm
+      ${
+        emailError
+          ? "border-red-500 focus:ring-red-500"
+          : !email
+          ? "border-gray-300 focus:ring-blue-500"
+          : "border-green-500 focus:ring-green-500"
+      }`}
+              onChange={onEmailChange}
+              value={email}
+              autoComplete="email"
             />
+            {emailError && (
+              <p className="text-red-500 text-xs mt-1">{emailError}</p>
+            )}
           </div>
         </form>
       </div>
