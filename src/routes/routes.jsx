@@ -24,14 +24,11 @@ function AppRoutes() {
             element={<RecuperarContraseña />}
           />
 
-          {/* RUTA PROTEGIDA: Solo accesible si hay un servicio seleccionado */}
-          <Route element={<ProtectedRoute />}>
-            <Route path="/tramites" element={<Tramites />} />
-          </Route>
+          <Route path="/tramites" element={<Tramites />} />
 
-          {/* RUTAS PROTEGIDAS */}
+          {/* RUTA PROTEGIDA: Solo accesible si está autenticado */}
           <Route element={<ProtectedRoute />}>
-            <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Route>
         </Routes>
       </Router>

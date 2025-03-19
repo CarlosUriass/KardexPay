@@ -1,16 +1,15 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useContext } from "react";
-import { ServiceContext } from "../context/ServiceContext";
 
 const ProtectedRoute = () => {
-  const { selectedService } = useContext(ServiceContext);
+  // Verificar si hay un token en el localStorage
+  const token = localStorage.getItem("token");
 
-  // Si no hay servicio seleccionado en el contexto, redirige a /servicios
-  if (!selectedService) {
-    return <Navigate to="/servicios" />;
+  // Si no hay token, redirige al login
+  if (!token) {
+    return <Navigate to="/login" />;
   }
 
-  // Si hay un servicio seleccionado, permite acceder a la ruta
+  // Si hay un token, permite acceder a la ruta
   return <Outlet />;
 };
 
