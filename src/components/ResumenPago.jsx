@@ -62,7 +62,7 @@ function ResumenPago() {
 
       {/* Botón de Pagar */}
       <div className="mt-6 relative z-30">
-        <button className="w-full py-2 bg-blue-500 text-white rounded-lg shadow-xl hover:bg-blue-600">
+        <button className="w-full py-2 bg-blue-500 text-white rounded-lg shadow-xl hover:bg-blue-600 cursor-pointer">
           Pagar
         </button>
       </div>
