@@ -20,8 +20,17 @@ function FormularioTramite() {
     segundoApellido: "",
     facultad: "",
   });
-  const [tramite, setTramite] = useState("");
 
+  const clearUsuarioData = () => {
+    setUsuarioData({
+      nombre: "",
+      primerApellido: "",
+      segundoApellido: "",
+      facultad: "",
+    });
+  };
+
+  const [tramite, setTramite] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
@@ -36,16 +45,12 @@ function FormularioTramite() {
 
   // Verifica si el servicio es aplicable a alumnos
   const verificarServicioAplicable = () => {
-    console.log("Verificando si el servicio es aplicable:", tramite);
-
     axios
       .get(`http://localhost:5001/api/servicios/aplicableAlumnos`, {
         params: { servicio: tramite },
       })
       .then((response) => {
         if (response.data.aplicable) {
-          console.log(response.data.aplicable);
-
           fetchUsuarioData();
         } else {
           // Aqui buscar entre los empleados
@@ -67,6 +72,7 @@ function FormularioTramite() {
           setUsuarioData(response.data);
         })
         .catch(() => {
+          clearUsuarioData();
           openModal(
             "No se encontró la matrícula. Verifique si el servicio seleccionado aplica para su matrícula."
           );
@@ -131,7 +137,7 @@ function FormularioTramite() {
                 name="nombre"
                 placeholder="Nombre"
                 disabled
-                value={utils.capitalize(usuarioData.nombre || "")}
+                value={utils.title(usuarioData.nombre || "")}
                 className="mt-2 block w-full max-w-lg px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
@@ -150,7 +156,7 @@ function FormularioTramite() {
                 name="primerApellido"
                 placeholder="Primer apellido"
                 disabled
-                value={utils.capitalize(usuarioData.primer_apellido || "")}
+                value={utils.title(usuarioData.primer_apellido || "")}
                 className="mt-2 block w-full max-w-lg px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
@@ -171,7 +177,7 @@ function FormularioTramite() {
                 name="segundoApellido"
                 placeholder="Segundo apellido"
                 disabled
-                value={utils.capitalize(usuarioData.segundo_apellido || "")}
+                value={utils.title(usuarioData.segundo_apellido || "")}
                 className="mt-2 block w-full max-w-lg px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
@@ -190,7 +196,7 @@ function FormularioTramite() {
                 name="facultad"
                 placeholder="Facultad"
                 disabled
-                value={utils.capitalize(usuarioData.facultad || "")}
+                value={utils.title(usuarioData.facultad || "")}
                 className="mt-2 block w-full max-w-lg px-4 py-3 border border-gray-300 rounded-lg shadow-sm 
                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
