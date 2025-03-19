@@ -1,5 +1,11 @@
+import SignOut from "../components/SingOut";
+
 function Dashboard() {
-  return <h1>Hola, autenticado!</h1>;
+  return (
+    <>
+      <SignOut></SignOut>
+    </>
+  );
 }
 
 export default Dashboard;
