@@ -29,7 +29,8 @@ function ServicesSection() {
             key={service.id_servicio}
             image="src/assets/constancia_ejemplo.webp"
             title={service.nombre}
-            description={service.descripcion || "Descripción no disponible"} // Si no hay descripción, mostramos un valor por defecto
+            description={service.descripcion || "Descripción no disponible"}
+            precio={service.costo}
           />
         ))}
       </div>
