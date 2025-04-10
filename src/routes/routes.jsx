@@ -1,39 +1,35 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ServiceProvider } from "../context/ServiceContext";
-import LandingPage from "../pages/LandingPage";
-import Servicios from "../pages/Servicios";
-import Tramites from "../pages/Tramites";
-import Consultas from "../pages/Consultas";
-import Login from "../pages/Login";
-import RecuperarContraseña from "../pages/RecuperarContrasena";
-import ProtectedRoute from "./ProtectedRoute";
-import Dashboard from "../pages/Dashboard";
+import Home from "../modules/home/pages/Home";
+import Login from "../modules/login/pages/Login";
+import DashboardRoute from "../modules/dashboard/routes/DashboardRoute";
+import Dashboard from "../modules/dashboard/pages/Dashboard";
+import Tramites from "../modules/tramites/pages/Tramites";
+import Consultas from "../modules/consultas/pages/Consultas";
 
-function AppRoutes() {
-  return (
-    <ServiceProvider>
-      <Router>
-        <Routes>
-          {/* RUTAS PUBLICAS */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/servicios" element={<Servicios />} />
-          <Route path="/consultas" element={<Consultas />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/recuperarContraseña"
-            element={<RecuperarContraseña />}
-          />
+const routes = [
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/tramites",
+    element: <Tramites />,
+  },
+  {
+    path: "/consultas",
+    element: <Consultas></Consultas>,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <DashboardRoute>
+        <Dashboard />
+      </DashboardRoute>
+    ),
+  },
+];
 
-          <Route path="/tramites" element={<Tramites />} />
-
-          {/* RUTA PROTEGIDA: Solo accesible si está autenticado */}
-          <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Route>
-        </Routes>
-      </Router>
-    </ServiceProvider>
-  );
-}
-
-export default AppRoutes;
+export default routes;

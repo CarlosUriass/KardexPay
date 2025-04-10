@@ -3,34 +3,23 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <nav className="bg-white h-20 flex items-center justify-between px-8 shadow-md">
-      <Link
-        to="/"
-        className="text-black font-bold text-3xl font-[Montserrat] pl-12"
-      >
+      {/* Logo / Nombre del sitio */}
+      <Link to="/" className="text-[#706cec] font-bold text-3xl pl-12">
         KardexPay
       </Link>
+      <div className="flex space-x-8 pr-12">
+        <Link to="/" className="text-black">
+          Servicios
+        </Link>
 
-      <ul className="ml-auto flex items-center space-x-8">
-        <li>
-          <Link
-            to="/servicios"
-            className="text-black font-light cursor-pointer"
-          >
-            Servicios
-          </Link>
-        </li>
+        <Link to="/consultas" className="text-black">
+          Consultar
+        </Link>
 
-        <li>
-          <Link
-            to="/consultas"
-            className="text-black font-light cursor-pointer"
-          >
-            Consultar Estado
-          </Link>
-        </li>
-
-        <li></li>
-      </ul>
+        <Link to="/login" className="text-black">
+          Acceso
+        </Link>
+      </div>
     </nav>
   );
 }
