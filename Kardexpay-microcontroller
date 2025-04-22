@@ -1,0 +1,83 @@
+#include <WiFi.h>
+#include <HTTPClient.h>
+
+// Configura los datos de tu red Wi-Fi
+const char* ssid = "Tesila";          // Reemplaza con tu SSID
+const char* password = "hansel123";  // Reemplaza con tu contraseña Wi-Fi
+const int pin = 23;
+// URL del servidor donde recibirás los datos (cambia esto por la IP de tu servidor)
+const char* serverUrl = "http://192.168.162.17:5001/api/esp32/data";  // Cambia 'your_server_ip' por la IP de tu servidor
+
+void setup() {
+  // Inicia la comunicación serial
+  Serial.begin(115200);
+  delay(1000);
+  
+  // Conexión Wi-Fi
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  
+  // Espera a que se conecte
+  Serial.print("Conectando a WiFi");
+  int intentos = 0;
+  while (WiFi.status() != WL_CONNECTED && intentos < 20) {
+    delay(500);
+    Serial.println(WiFi.status());
+    Serial.print(".");
+    intentos++;
+  }
+  
+  // Mostrar IP del ESP32
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println(WiFi.status());
+    Serial.println("\n¡Conectado!");
+    Serial.print("IP: ");
+    Serial.println(WiFi.localIP());
+  } else {
+    Serial.println("\nNo se pudo conectar al WiFi.");
+  }
+}
+
+void loop() {
+  // Espera unos segundos antes de enviar la solicitud
+  delay(3000);
+  
+  // Crea el cliente HTTP
+  HTTPClient http;
+
+  // Configura la URL para hacer el POST
+  http.begin(serverUrl);
+  
+  // Define el tipo de contenido como JSON
+  http.addHeader("Content-Type", "application/json");
+  
+  // Cuerpo de la solicitud (puedes modificar este mensaje)
+  String message = "{\"message\": \"Hola desde el ESP32!\"}";
+  
+  // Enviar el POST
+  int httpResponseCode = http.POST(message);
+  
+  // Verifica el código de respuesta
+  if (httpResponseCode > 0) {
+
+    Serial.print("Código de respuesta HTTP: ");
+
+    Serial.println(httpResponseCode);
+    
+    String response = http.getString();
+  
+    Serial.println("Respuesta del servidor: ");
+  
+    Serial.println(response);
+  
+  } else {
+  
+    Serial.print("Error en la solicitud HTTP: ");
+    
+    Serial.println(httpResponseCode);
+
+  }
+  
+  // Cierra la conexión HTTP
+  http.end();
+}
