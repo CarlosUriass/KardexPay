@@ -7,7 +7,7 @@ function Login() {
       <div className="flex items-center justify-center">
         <DotLottieReact
           className="w-160 h-160"
-          src="src/assets/animations/LoginAnimation.lottie"
+          src="src/assets/animations/Animation - 1745459194285.lottie"
           loop
           autoplay
         />

@@ -12,10 +12,13 @@ function LoginButton({ buttonText, isEmailValid, email, password }) {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post("http://localhost:5001/auth/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://kardexpaybackend.onrender.com/auth/login",
+        {
+          email,
+          password,
+        }
+      );
 
       if (response.status == 200) {
         localStorage.setItem("token", response.data.token);
