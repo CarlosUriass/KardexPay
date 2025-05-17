@@ -4,6 +4,8 @@ import DashboardRoute from "../modules/dashboard/routes/DashboardRoute";
 import Dashboard from "../modules/dashboard/pages/Dashboard";
 import Tramites from "../modules/tramites/pages/Tramites";
 import Consultas from "../modules/consultas/pages/Consultas";
+import Pago from "../modules/pagos/pages/Pago";
+import ConfirmacionPage from "../modules/confirmacion/pages/Confirmacion";
 
 const routes = [
   {
@@ -22,6 +24,15 @@ const routes = [
     path: "/login",
     element: <Login />,
   },
+  {
+    path: "/pago",
+    element: <Pago />,
+  },
+  {
+    path: "/confirmacion",
+    element: <ConfirmacionPage />,
+  },
+
   {
     path: "/dashboard",
     element: (

@@ -11,7 +11,7 @@ function Tramites() {
     const fetchTramites = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5001/api/getServices"
+          "https://kardexpaybackend.onrender.com/api/getServices"
         );
         setTramites(response.data.allTramites);
       } catch (error) {
@@ -34,6 +34,8 @@ function Tramites() {
               title={capitalize(tramite.nombre)}
               description={capitalize(tramite.descripcion)}
               imageUrl={tramite.img || "src/assets/img/constancia_ejemplo.webp"}
+              price={tramite.costo || 0}
+              discount={tramite.descuento || 0}
             />
           ))}
         </div>
