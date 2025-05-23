@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 export function Header() {
   const [mounted, setMounted] = useState(false);
@@ -23,7 +24,6 @@ export function Header() {
   };
 
   if (!mounted) {
-    // Evita renderizar hasta que el tema se haya aplicado (para evitar flash)
     return null;
   }
 
@@ -39,31 +39,31 @@ export function Header() {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <a href="/" className="-m-1.5 p-1.5">
+          <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Kardex Pay</span>
             <img className="h-8 w-auto" src="" alt="KardexPay logo" />
-          </a>
+          </Link>
         </div>
 
         <div className="flex gap-x-12">
-          <a
-            href=""
+          <Link
+            to="/realizar-tramite"
             className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
           >
-            Realiza un tramite
-          </a>
-          <a
-            href=""
+            Realiza un trámite
+          </Link>
+          <Link
+            to="/consulta"
             className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
           >
-            Consultar tramite
-          </a>
-          <a
-            href=""
+            Consultar trámite
+          </Link>
+          <Link
+            to="/contacto"
             className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
           >
             Contacto
-          </a>
+          </Link>
         </div>
 
         <div className="flex flex-1 justify-end">
